@@ -10,10 +10,16 @@
     <height>520</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>520</height>
+   </size>
+  </property>
   <property name="maximumSize">
    <size>
-    <width>16777215</width>
-    <height>16777215</height>
+    <width>600</width>
+    <height>520</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -28,7 +34,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QListWidget" name="listWidgetFiles"/>
+        <widget class="QListView" name="listWidgetFiles"/>
        </item>
       </layout>
      </widget>
@@ -36,23 +42,27 @@
     <item>
      <widget class="QWidget" name="widget" native="true">
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="LineEditPort"/>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="LabelIP">
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelPort">
          <property name="text">
-          <string>IP</string>
+          <string>端口号</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="LabelPort">
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="LineEditPort">
          <property name="text">
-          <string>端口号</string>
+          <string>8080</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelIp">
+         <property name="text">
+          <string>IP</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -82,14 +92,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="ButtonAddfile">
+        <widget class="QPushButton" name="ButtonConnect">
          <property name="text">
-          <string>添加文件</string>
+          <string> 连接服务器</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_5">
+        <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -102,9 +112,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="ButtonDelfile">
+        <widget class="QPushButton" name="ButtonDisconnect">
          <property name="text">
-          <string>删除文件</string>
+          <string> 断开服务器</string>
          </property>
         </widget>
        </item>
@@ -122,9 +132,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="ButtonRun">
+        <widget class="QPushButton" name="ButtonDownLoad">
          <property name="text">
-          <string>运行服务器</string>
+          <string>下载文件</string>
          </property>
         </widget>
        </item>
@@ -142,14 +152,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="ButtonStop">
+        <widget class="QPushButton" name="ButtonUpLoad">
          <property name="text">
-          <string>停止服务器</string>
+          <string>上传文件</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_2">
+        <spacer name="horizontalSpacer_5">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>

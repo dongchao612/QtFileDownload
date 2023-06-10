@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget* parent)
     this->setMaximumSize(WIDTH, HEIGHT);
     this->setMinimumSize(WIDTH, HEIGHT);
 
-    this->m_baseDir = "./ServerFiles";
+    this->m_baseDir = "ServerFiles";
 
     Init();
 }
@@ -21,6 +21,14 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+QList<QString> MainWindow::getFileList(QString dir)
+{
+    QDir  base_dir(dir);
+    QList<QString> entry = base_dir.entryList(QDir::Files); //去除 . ..文件夹
+
+    return entry;
 }
 
 inline void print(int n)
@@ -39,8 +47,7 @@ void MainWindow::Init()
         dir.mkpath(m_baseDir);
     }
 
-    QDir  base_dir(m_baseDir);
-    QStringList entry = base_dir.entryList(QDir::Files); //去除 . ..文件夹
+    entry = getFileList(m_baseDir);
 
     for (int i = 0; i < entry.length() ; i++)
     {
@@ -120,10 +127,7 @@ void MainWindow::on_ButtonRun_clicked()
             m_socket = m_server->nextPendingConnection();//建立TCP连接
             qDebug() << "上线了一个客户端" << endl;
             print(++m_socket_count);
-            connect(m_socket, SIGNAL(connected()), this, SLOT(onConnected()));
-            connect(m_socket, SIGNAL(disconnected()), this, SLOT(onDisconnect()));
-            connect(m_socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
-            connect(m_socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onError()));
+            m_SocketHandle = new SocketHandle(m_socket);
         });
     }
 }
@@ -143,31 +147,4 @@ void MainWindow::on_ComboBoxIP_currentTextChanged(const QString& arg1)
     m_localIP = arg1;
 }
 
-void MainWindow::onConnected()
-{
 
-}
-
-
-void MainWindow::onDisconnect()
-{
-    m_socket->deleteLater();
-    print(--m_socket_count);;
-    qDebug() << "客户端断开连接..." << endl;
-}
-
-void MainWindow::onReadyRead()
-{
-    if(m_socket->bytesAvailable())
-    {
-        // 接收消息
-        QByteArray buf = m_socket->readAll();
-        //显示消息
-        qDebug() << buf.data() << endl;
-    }
-}
-
-void MainWindow::onError()
-{
-    QMessageBox::critical(this, "ERROR!", m_socket->errorString());
-}
